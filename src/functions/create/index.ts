@@ -7,7 +7,7 @@ export default {
     {
       http: {
         method: 'post',
-        path: 'create',
+        path: 'v1/create',
         request: {
           schemas: {
             'application/json': lambdaSchema,

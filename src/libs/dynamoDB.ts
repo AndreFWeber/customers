@@ -4,9 +4,10 @@ import config from '@config';
 import { randomBytes } from 'crypto';
 
 const dynamoDb = new DynamoDB.DocumentClient();
-type CreateItemType = Pick<ICustomer, 'firstName'|'lastName'|'email'>;
+type editableCustomerType = Pick<ICustomer, 'firstName'|'lastName'|'email'>;
+const editableFields = ['firstName','lastName','email']
 
-const createItem = async (customer: CreateItemType) => {
+const createItem = async (customer: editableCustomerType) => {
   try {
     const params = getPutItemInput({
         id: randomBytes(config.idHashSize).toString('hex'),
@@ -38,6 +39,52 @@ const getPutItemInput = (customer:ICustomer): DynamoDB.DocumentClient.PutItemInp
     };
 }
 
+const updateItem = async (customerId:string, customerFields: Partial<editableCustomerType>) => {
+  try {
+    const params = getUpdateItemInput(customerId, customerFields)
+
+    await dynamoDb.update(params).promise();
+
+    return {
+      statusCode: 200,
+      body: JSON.stringify({ message: 'Item created successfully' }),
+    };
+  } catch (error) {
+    return {
+      statusCode: 500,
+      body: JSON.stringify({ error: 'Could not create item', details: error }),
+    };
+  }
+};
+
+const getUpdateItemInput = (customerId:string, customerFields: Partial<editableCustomerType>): DynamoDB.DocumentClient.UpdateItemInput => {
+  let customerExpression:string = 'set '
+  let customerValues:{[fieldName:string]:string} = {
+    ':id':customerId
+  }
+
+  editableFields.forEach(field => {
+    if(customerFields[field]) {
+      customerExpression += `${field} = :${field},`
+      customerValues[`:${field}`] = customerFields[`${field}`]
+    }
+  })
+  customerExpression = customerExpression.slice(0, -1);
+
+  return {
+    TableName: config.tableName,
+    Key: {
+      id: customerId,
+    },
+    UpdateExpression: customerExpression,
+    ExpressionAttributeValues: customerValues,
+    ConditionExpression: 'id = :id',
+    ReturnValues: 'ALL_NEW',
+  };
+  
+}
+
 export {
-    createItem
+    createItem,
+    updateItem
 }

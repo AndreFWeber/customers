@@ -10,7 +10,7 @@ const create: ValidatedEventAPIGatewayProxyEvent<typeof lambdaSchema> = async (e
   await createItem({
     firstName: body.firstName,
     lastName: body.lastName,
-    email: <String>body.email
+    email: <string>body.email
   })
 
   return formatJSONResponse({

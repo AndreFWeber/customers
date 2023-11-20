@@ -2,5 +2,5 @@
     "headers": {
       "Content-Type": "application/json"
     },
-    "body": "{ \"firstName\": \"foos\", \"lastName\":\"bar\", \"email\":\"foo@bar.com\" }"
+    "body": "{ \"id\": \"7888a0aead941f77f7e93e7e7f959c89c505c8c9\", \"firstName\": \"update last\", \"lastName\":\"bar last\", \"email\":\"food@bar.com\" }"
 }
