@@ -3,7 +3,8 @@ import config from '@config'
 import {
   create,
   update,
-  get
+  get,
+  list
 } from '@functions/index';
 
 const serverlessConfiguration: AWS = {
@@ -23,7 +24,7 @@ const serverlessConfiguration: AWS = {
     },
   },
   // import the function via paths
-  functions: { create, update, get },
+  functions: { create, update, get, list },
   resources: {
     Resources: {
       CustomersTable: {

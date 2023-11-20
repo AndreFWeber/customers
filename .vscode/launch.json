@@ -81,6 +81,32 @@
                 "--path",
                 ".vscode/get.json"
             ]
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "list",
+            "program": "node_modules/serverless/bin/serverless.js",
+            "console": "integratedTerminal",
+            "env": {
+                "_X_AMZN_TRACE_ID":"1=1",
+                "SLS_DEBUG":"",
+                "AWS_XRAY_CONTEXT_MISSING":"LOG_ERROR",
+                "IS_OFFLINE":"true"
+            },
+            "runtimeArgs": [
+                "--harmony"
+            ],
+            "args": [
+                "invoke",
+                "local",
+                "-f",
+                "list",
+                "-s",
+                "dev",
+                "--path",
+                ".vscode/list.json"
+            ]
         }
     ]
 }

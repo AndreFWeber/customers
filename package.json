@@ -10,12 +10,13 @@
     "node": ">=18.18.2"
   },
   "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.454.0",
     "@middy/core": "^3.4.0",
     "@middy/http-error-handler": "^5.0.2",
     "@middy/http-json-body-parser": "^3.4.0",
     "@middy/http-security-headers": "^5.0.2",
     "@middy/validator": "^5.0.2",
-    "aws-sdk": "^2.1499.0"
+    "aws-sdk": "^2.1500.0"
   },
   "devDependencies": {
     "@serverless/typescript": "^3.0.0",
