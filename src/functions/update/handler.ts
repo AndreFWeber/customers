@@ -8,7 +8,7 @@ const update: ValidatedEventAPIGatewayProxyEvent<typeof lambdaSchema> = async (e
   const {body} = event;
   
   // get id from auth?
-  await updateItem(
+  const response = await updateItem(
     body.id,
     {
       firstName: body.firstName,
@@ -17,10 +17,7 @@ const update: ValidatedEventAPIGatewayProxyEvent<typeof lambdaSchema> = async (e
     }
   )
 
-  return formatJSONResponse({
-    message: `update ${event}, welcome to the exciting Serverless world!`,
-    event,
-  });
+  return formatJSONResponse(response.statusCode, response);
 };
 
 export const main = middyfy(update, inputValidationSchema);

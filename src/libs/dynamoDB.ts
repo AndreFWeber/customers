@@ -18,7 +18,7 @@ const createItem = async (customer: editableCustomerType) => {
 
     return {
       statusCode: 200,
-      body: JSON.stringify({ message: 'Item created successfully' }),
+      body: { message: 'Item created successfully' },
     };
   } catch (error) {
     if(error.code === 'ConditionalCheckFailedException') {
@@ -26,7 +26,7 @@ const createItem = async (customer: editableCustomerType) => {
     }
     return {
       statusCode: 500,
-      body: JSON.stringify({ error: 'Could not create item', details: error }),
+      body: { error: 'Could not create item', details: error },
     };
   }
 };
@@ -43,16 +43,16 @@ const updateItem = async (customerId:string, customerFields: Partial<editableCus
   try {
     const params = getUpdateItemInput(customerId, customerFields)
 
-    await dynamoDb.update(params).promise();
+    const {Attributes: customer} = await dynamoDb.update(params).promise();
 
     return {
       statusCode: 200,
-      body: JSON.stringify({ message: 'Item created successfully' }),
+      body: { message: 'Item updated successfully', customer },
     };
   } catch (error) {
     return {
       statusCode: 500,
-      body: JSON.stringify({ error: 'Could not create item', details: error }),
+      body: { error: 'Could not create item', details: error },
     };
   }
 };

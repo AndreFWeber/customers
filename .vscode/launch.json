@@ -27,7 +27,7 @@
                 "-s",
                 "dev",
                 "--path",
-                ".vscode/data.json"
+                ".vscode/create.json"
             ]
         },
         {
@@ -53,7 +53,33 @@
                 "-s",
                 "dev",
                 "--path",
-                ".vscode/data.json"
+                ".vscode/update.json"
+            ]
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "get",
+            "program": "node_modules/serverless/bin/serverless.js",
+            "console": "integratedTerminal",
+            "env": {
+                "_X_AMZN_TRACE_ID":"1=1",
+                "SLS_DEBUG":"",
+                "AWS_XRAY_CONTEXT_MISSING":"LOG_ERROR",
+                "IS_OFFLINE":"true"
+            },
+            "runtimeArgs": [
+                "--harmony"
+            ],
+            "args": [
+                "invoke",
+                "local",
+                "-f",
+                "get",
+                "-s",
+                "dev",
+                "--path",
+                ".vscode/get.json"
             ]
         }
     ]

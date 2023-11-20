@@ -2,7 +2,8 @@ import type { AWS } from '@serverless/typescript';
 import config from '@config'
 import {
   create,
-  update
+  update,
+  get
 } from '@functions/index';
 
 const serverlessConfiguration: AWS = {
@@ -22,7 +23,7 @@ const serverlessConfiguration: AWS = {
     },
   },
   // import the function via paths
-  functions: { create, update },
+  functions: { create, update, get },
   resources: {
     Resources: {
       CustomersTable: {

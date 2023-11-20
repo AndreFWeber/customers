@@ -7,16 +7,13 @@ import { createItem } from '@libs/dynamoDB';
 const create: ValidatedEventAPIGatewayProxyEvent<typeof lambdaSchema> = async (event) => {
   const {body} = event;
 
-  await createItem({
+  const response = await createItem({
     firstName: body.firstName,
     lastName: body.lastName,
     email: <string>body.email
   })
 
-  return formatJSONResponse({
-    message: `create ${event}, welcome to the exciting Serverless world!`,
-    event,
-  });
+  return formatJSONResponse(response.statusCode, response);
 };
 
 export const main = middyfy(create, inputValidationSchema);
