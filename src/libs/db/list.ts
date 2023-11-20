@@ -1,4 +1,4 @@
-import { DynamoDBClient, ScanCommand, ScanCommandInput, AttributeValue } from '@aws-sdk/client-dynamodb';
+import { DynamoDBClient, ScanCommand, ScanCommandInput } from '@aws-sdk/client-dynamodb';
 import config from '@config';
 
 const dynamoDbClient = new DynamoDBClient({ region: config.region });
