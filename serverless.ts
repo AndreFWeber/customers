@@ -1,6 +1,9 @@
 import type { AWS } from '@serverless/typescript';
 import config from '@config'
-import create from '@functions/create';
+import {
+  create,
+  update
+} from '@functions/index';
 
 const serverlessConfiguration: AWS = {
   service: 'pagaleve',
@@ -19,7 +22,7 @@ const serverlessConfiguration: AWS = {
     },
   },
   // import the function via paths
-  functions: { create },
+  functions: { create, update },
   resources: {
     Resources: {
       CustomersTable: {
@@ -48,63 +51,59 @@ const serverlessConfiguration: AWS = {
             {
               AttributeName: 'id',
               KeyType: 'HASH',
-            },
-            {
-              AttributeName: 'firstName', // Add a range key for the Local Secondary Index
-              KeyType: 'RANGE',
-            },
+            }
           ],
           ProvisionedThroughput: {
             ReadCapacityUnits: 5,
             WriteCapacityUnits: 5,
           },
-          LocalSecondaryIndexes: [
+          GlobalSecondaryIndexes: [
             {
               IndexName: 'FirstNameIndex',
               KeySchema: [
                 {
-                  AttributeName: 'id', // Same as the base table partition key
+                  AttributeName: 'firstName',
                   KeyType: 'HASH',
-                },
-                {
-                  AttributeName: 'firstName', // Sort key for the local index
-                  KeyType: 'RANGE',
                 },
               ],
               Projection: {
-                ProjectionType: 'ALL', // Change as needed
+                ProjectionType: 'ALL',
+              },
+              ProvisionedThroughput: {
+                ReadCapacityUnits: 5,
+                WriteCapacityUnits: 5,
               },
             },
             {
               IndexName: 'LastNameIndex',
               KeySchema: [
                 {
-                  AttributeName: 'id', // Same as the base table partition key
+                  AttributeName: 'lastName',
                   KeyType: 'HASH',
-                },
-                {
-                  AttributeName: 'lastName', // Sort key for the local index
-                  KeyType: 'RANGE',
                 },
               ],
               Projection: {
-                ProjectionType: 'ALL', // Change as needed
+                ProjectionType: 'ALL',
+              },
+              ProvisionedThroughput: {
+                ReadCapacityUnits: 5,
+                WriteCapacityUnits: 5,
               },
             },
             {
               IndexName: 'emailIndex',
               KeySchema: [
                 {
-                  AttributeName: 'id', // Same as the base table partition key
+                  AttributeName: 'email',
                   KeyType: 'HASH',
-                },
-                {
-                  AttributeName: 'email', // Sort key for the local index
-                  KeyType: 'RANGE',
                 },
               ],
               Projection: {
-                ProjectionType: 'ALL', // Change as needed
+                ProjectionType: 'ALL',
+              },
+              ProvisionedThroughput: {
+                ReadCapacityUnits: 5,
+                WriteCapacityUnits: 5,
               },
             },
           ],

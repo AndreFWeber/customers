@@ -7,7 +7,7 @@ export default {
     {
       http: {
         method: 'put',
-        path: 'update',
+        path: 'v1/update',
         request: {
           schemas: {
             'application/json': lambdaSchema,
