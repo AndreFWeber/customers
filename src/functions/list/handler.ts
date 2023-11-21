@@ -5,10 +5,10 @@ import {lambdaSchema, inputValidationSchema} from './schema';
 import listItem from '@libs/db/list';
 
 const listHandler: ValidatedEventAPIGatewayProxyEvent<typeof lambdaSchema> = async (event) => {
-  const {body} = event;
+  const { queryStringParameters } = event;
   
   // get id from auth?
-  const response = await listItem(body.paginationKey)
+  const response = await listItem(queryStringParameters?.paginationKey)
 
   return formatJSONResponse(response.statusCode, response);
 };

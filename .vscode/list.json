@@ -1,6 +1,6 @@
 {
     "headers": {
-      "Content-Type": "application/json"
+      "Content-Type": "applicatsion/json"
     },
-    "body": "{ \"paginationKey\": \"9c28a415375cd6993601ac77069c5f1d664ddde6\" }"
+    "queryStringParameters": { "paginationKey": "9356e1e1e1edd6babf8dc6c422b6141c3ecc2e35" }
 }

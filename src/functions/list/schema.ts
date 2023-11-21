@@ -8,13 +8,13 @@ const lambdaSchema = {
 
 const inputValidationSchema = {
   type: 'object',
-  required: ['body'],
+  required: [],
   properties: {
-    body: {
+    queryStringParameters: {
       type: 'object',
       required: [],
       properties: {
-        paginationKey: { type: 'string' },
+        paginationKey: { type: 'string', maxLength: 40, minLength:39 },
       }
     }
   }

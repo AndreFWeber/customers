@@ -1,4 +1,4 @@
-import { lambdaSchema } from './schema';
+// import { lambdaSchema } from './schema';
 import { handlerPath } from '@libs/handler-resolver';
 
 export default {
@@ -7,12 +7,7 @@ export default {
     {
       http: {
         method: 'get',
-        path: 'v1/list',
-        request: {
-          schemas: {
-            'application/json': lambdaSchema,
-          },
-        },
+        path: 'v1/list'
       },
     },
   ],
